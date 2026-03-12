@@ -28,6 +28,20 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
             imageView1 = itemView.findViewById(R.id.imgView1);
             txtViewProductName = itemView.findViewById(R.id.txtViewProductName);
             txtViewProductPrice = itemView.findViewById(R.id.txtViewProductPrice);
+
+            //way 3 - attaching listener in constructor / implementing serializable in Product class
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Product eachProduct = productArrayList.get(getBindingAdapterPosition());
+                    Intent i = new Intent(itemView.getContext(),ProductDetailsActivity.class);
+//                    i.putExtra("pr_id",eachProduct.getProductId());
+//                    i.putExtra("pr_name",eachProduct.getProductName());
+//                    i.putExtra("pr_price",eachProduct.getProductPrice());
+                    i.putExtra("product",eachProduct);
+                    itemView.getContext().startActivity(i);
+                }
+            });
         }
     }
 
@@ -68,16 +82,28 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
             txtViewProductName.setText(product.getProductName());
             txtViewProductPrice.setText(product.getProductPrice() + "");
 
+            //attaching listener to view
+//            holder.itemView.setOnClickListener(
+//                    new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View view) {
+//                            Intent intent1 = new Intent(view.getContext(),ProductDetailsActivity.class);
+//                            intent1.putExtra("p_name",productArrayList.get(position).getProductName());
+//                            intent1.putExtra("p_price",productArrayList.get(position).getProductPrice());
+//                            view.getContext().startActivity(intent1);
+//                        }
+//                    }
+//            );
 
-            txtViewProductName.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent1 = new Intent(view.getContext(),ProductDetailsActivity.class);
-                    intent1.putExtra("p_name",productArrayList.get(position).getProductName());
-                    intent1.putExtra("p_price",productArrayList.get(position).getProductPrice());
-                    view.getContext().startActivity(intent1);
-                }
-            });
+//            txtViewProductName.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    Intent intent1 = new Intent(view.getContext(),ProductDetailsActivity.class);
+//                    intent1.putExtra("p_name",productArrayList.get(position).getProductName());
+//                    intent1.putExtra("p_price",productArrayList.get(position).getProductPrice());
+//                    view.getContext().startActivity(intent1);
+//                }
+//            });
     }
 
     @Override

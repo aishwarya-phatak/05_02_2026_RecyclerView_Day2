@@ -24,16 +24,18 @@ public class ProductDetailsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         assert bundle != null;
-        //attaching listeners from onCreateViewHolder
+
+        //way 3 - implementing serializable
+        Product product = (Product) bundle.getSerializable("product");
+        txtProductName.setText(product.getProductId() + " " + product.getProductName());
+        txtProductPrice.setText(product.getProductPrice() + " ");
+
+        //attaching listeners from onCreateViewHolder -- way 1
 //        String pName = bundle.getString("product_name");
 //        int prPrice = bundle.getInt("product_price");
 
-
-        //attachment of listeners from onBindViewHolder
-        String prName = bundle.getString("p_name");
-        int prPrice = bundle.getInt("p_price");
-
-        txtProductName.setText(prName);
-        txtProductPrice.setText(prPrice + " ");
+        //attachment of listeners from onBindViewHolder -- way 2
+//        String prName = bundle.getString("p_name");
+//        int prPrice = bundle.getInt("p_price");
     }
 }
